@@ -73,9 +73,10 @@ export default {
       })
       try {
         const res = await login(this.mobile, this.code)
-        console.log('登录成功', res)
+        console.log('登录成功', res.data.data)
         this.$store.commit('setUser', res.data.data)
         this.$toast.success('登陆成功')
+        this.$router.push('/profile')
       } catch (err) {
         if (!err.response) {
           this.$toast.fail('手机号格式不正确')
