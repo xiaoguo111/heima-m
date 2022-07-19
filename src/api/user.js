@@ -27,3 +27,9 @@ export const getUserInfo = () => {
     url: '/v1_0/user'
   })
 }
+export const delMyChannel = (target) => {
+  return request({
+    url: `v1_0/user/channels/${target}`,
+    method: 'DELETE'
+  })
+}
