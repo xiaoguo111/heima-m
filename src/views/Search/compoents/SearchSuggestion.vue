@@ -1,0 +1,72 @@
+<template>
+  <div>
+    <van-cell
+      v-for="(item, index) in highlightData"
+      :key="index"
+      @click="checkSuggest(index)"
+    >
+      <template #icon>
+        <van-icon name="search" class="search-icon" />
+      </template>
+      <template #title>
+        <span v-html="item"></span>
+      </template>
+    </van-cell>
+  </div>
+</template>
+
+<script>
+import { getSearchSuggestion } from '@/api'
+export default {
+  data () {
+    return {
+      SearchSuggestionList: []
+    }
+  },
+  props: {
+    keywords: {
+      type: String,
+      required: true
+    }
+  },
+  watch: {
+    keywords: {
+      handler () {
+        this.getSearchSuggestion()
+      },
+      immediate: true
+    }
+  },
+  methods: {
+    async getSearchSuggestion () {
+      try {
+        const res = await getSearchSuggestion(this.keywords)
+        if (res.data.data.options.length === 0) {
+          this.$toast.fail('没有搜索结果')
+        }
+        this.SearchSuggestionList = res.data.data.options.filter(Boolean)
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    checkSuggest (index) {
+      const val = this.SearchSuggestionList[index]
+      this.$emit('checkSuggest', val)
+    }
+  },
+  computed: {
+    highlightData () {
+      const reg = new RegExp(this.keywords, 'gi')
+      return this.SearchSuggestionList.map((item) =>
+        item.replace(reg, (match) => `<span style='color:red'>${match}</span>`)
+      )
+    }
+  }
+}
+</script>
+
+<style scoped lang="less">
+.search-icon {
+  padding-top: 10px;
+}
+</style>

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div @click="$router.push({ path: '/article/' + id })">
     <van-cell
       v-if="articleInfo.cover.type === 0"
       :title="articleInfo.title"
@@ -39,6 +39,10 @@ export default {
   props: {
     articleInfo: {
       type: Object,
+      required: true
+    },
+    id: {
+      type: String,
       required: true
     }
   },

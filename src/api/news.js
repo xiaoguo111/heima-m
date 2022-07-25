@@ -14,3 +14,11 @@ export const getArticleList = (channelId, timestamp) => {
     }
   })
 }
+export const getArticleInfo = (articleid) => {
+  return request({
+    url: `/v1_0/articles/${articleid}`,
+    params: {
+      article_id: articleid
+    }
+  })
+}

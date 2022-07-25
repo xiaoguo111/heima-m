@@ -17,18 +17,26 @@ const routes = [
         component: () => import('@/views/Home')
       },
       {
-        path: '/video',
+        path: 'video',
         component: () => import('@/views/Video')
       },
       {
-        path: '/qa',
+        path: 'qa',
         component: () => import('@/views/QA')
       },
       {
-        path: '/profile',
+        path: 'profile',
         component: () => import('@/views/My')
       }
     ]
+  },
+  {
+    path: '/search',
+    component: () => import('@/views/Search')
+  },
+  {
+    path: '/article/:id',
+    component: () => import('@/views/Article')
   }
 ]
 
